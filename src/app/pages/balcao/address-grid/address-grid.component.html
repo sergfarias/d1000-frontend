@@ -1,0 +1,91 @@
+<div class="address-grid group-inline">
+
+  <div class="address-list fm-group size-100">
+    <div class="header">
+      <h2 class="label">Endereços</h2>
+      <ul class="actions">
+        <li><a (click)="dialogAddressRegister()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
+        <li><a (click)="searchSelectedAddressRegister(selectedAddress)"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+      </ul>
+    </div>
+
+    <div class="scrollbar">
+      <elastic-scrollbar class="scrollbar-container">
+
+        <mat-table #table [dataSource]="dataSource" >
+          <mat-header-row *cdkHeaderRowDef="displayedColumns" ></mat-header-row>
+          <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+
+          <ng-container cdkColumnDef="ID_CLIENTE_LOGRADOURO">
+            <mat-header-cell *cdkHeaderCellDef>ID_CLIENTE_LOGRADOURO </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.ID_CLIENTE_LOGRADOURO}} </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="ID_CLIENTE">
+            <mat-header-cell *cdkHeaderCellDef>ID_CLIENTE </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.ID_CLIENTE}} </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="ID_LOGRADOURO">
+            <mat-header-cell *cdkHeaderCellDef>ID_LOGRADOURO </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.ID_LOGRADOURO}} </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="RADIO">
+            <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> <mat-radio-button value="{{row.ID_LOGRADOURO}},{{row.ID_CLIENTE}},{{row.CEP}},{{row.LOGRADOURO}},{{row.NR_LOGRADOURO}},{{row.CPL_LOGRADOURO}},{{row.PONTO_REFERENCIA}},{{row.BAIRRO}},{{row.NOME_CIDADE}},{{row.SIGLA_UF}}" [checked]="row.ID_LOGRADOURO == checkedAddressId" (change)="radioChangeHandler(row, $event)"></mat-radio-button> </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="CEP">
+            <mat-header-cell *cdkHeaderCellDef>CEP</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.CEP}} </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="LOGRADOURO">
+            <mat-header-cell *cdkHeaderCellDef>Logradouro</mat-header-cell>
+            <mat-cell *cdkCellDef="let row">
+              <span class="item-name"
+                    #tooltip="matTooltip"
+                    matTooltip="{{row.LOGRADOURO}}"
+                    matTooltipPosition="above">
+                {{row.LOGRADOURO}}
+              </span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="NR_LOGRADOURO">
+            <mat-header-cell *cdkHeaderCellDef>Nº</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.NR_LOGRADOURO}} </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="BAIRRO">
+            <mat-header-cell *cdkHeaderCellDef>Bairro</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.BAIRRO}} </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="CPL_LOGRADOURO">
+            <mat-header-cell *cdkHeaderCellDef>Complemento</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.CPL_LOGRADOURO}} </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="NOME_CIDADE">
+            <mat-header-cell *cdkHeaderCellDef>Cidade</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.NOME_CIDADE}} </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="SIGLA_UF">
+            <mat-header-cell *cdkHeaderCellDef>UF</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.SIGLA_UF}} </mat-cell>
+          </ng-container>
+
+          <ng-container cdkColumnDef="PONTO_REFERENCIA">
+            <mat-header-cell *cdkHeaderCellDef>PONTO_REFERENCIA</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.PONTO_REFERENCIA}} </mat-cell>
+          </ng-container>
+        </mat-table>
+
+      </elastic-scrollbar>
+    </div>
+
+  </div>
+</div>

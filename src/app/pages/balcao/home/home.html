@@ -1,0 +1,252 @@
+<div class="store-front">
+  <div class="container">
+
+    <aside class="menu">
+      <!--<menu></menu>-->
+      <div class="scrollbar">
+        <elastic-scrollbar class="scrollbar-container">
+          <nav>
+            <ul>
+              <li>
+                <button (click)="dialogEscola()"><span class="material-icons">store</span></button>
+                <div class="tooltip">Escola</div>
+              </li>
+
+              <li>
+                <button (click)="dialogAluno()"><span class="material-icons">note_add</span></button>
+                <div class="tooltip">Aluno</div>
+              </li>
+
+              <li>
+                <button (click)="dialogTurma()"><i class="fa fa-archive" aria-hidden="true"></i></button>
+                <div class="tooltip">Turma</div>
+              </li>
+             
+               </ul>
+          </nav>
+        </elastic-scrollbar>
+      </div>
+    </aside>
+
+    <!-- =========================================================================================================== -->
+
+    <div class="main">
+      <div class="box">
+
+        <div class="summary">
+          <div class="product">
+            <ul class="description group-inline">
+              <li>
+                <div class="label">
+                  <a (click)="PesquisarProduto()">Descrição da escola <i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                  <div class="tooltip top left">{{DadosProduto?.DS_PROD ? 'Clique para mais informações' : 'Digite o nome da escola'}}</div>
+                </div>
+
+                <input #pesquisa
+                       class="input-name"
+                       type="text"
+                       name="TermoPesquisa"
+                       placeholder="Pesquisar Produto..."
+                       autofocus
+                       (click)="pesquisa.select()"
+                       (keyUp.enter)="PesquisarProduto()"
+                       [(ngModel)]="TermoPesquisa" />
+                <div class="tooltip top left">{{DadosProduto?.DS_PROD ? DadosProduto?.DS_PROD : 'Digite o nome da escola'}}</div>
+              </li>
+         
+            </ul>
+          
+          </div>
+
+          <!-- /////////////////////////////////////////// -->
+
+          <div class="suggest">
+            <div class="group">
+              <div class="table col-2">
+            
+                <div class="scrollbar">
+                  <elastic-scrollbar class="scrollbar-container">
+                    <ul class="table-list">
+                      <li>
+                        <ul class="table-content" *ngFor="let est of EstoqueLojas">
+                          <li>
+                            <span class="item-name"
+                                  #tooltip="matTooltip"
+                                  matTooltip="{{est.NOME_LISTA}}"
+                                  matTooltipPosition="above">
+                              {{est.NOME_LISTA}}
+                            </span>
+                          </li>
+                          <li>{{est.QTDE_EST | number:'1.0'}}</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </elastic-scrollbar>
+                </div>
+              </div>
+            </div>
+
+            <!-- /// -->
+
+          </div>
+        </div>
+
+      
+        <div class="benefits group-inline">
+
+        </div>
+
+      </div>
+
+      <!-- =============================================================================================-->
+
+      
+      <div class="box-inline">
+        <section class="box group">
+          <div class="user">
+            <header class="label-bar">
+              <p>Turmas</p>
+              <ul class="user-actions">
+              </ul>
+            </header>
+
+              <div class="scrollbar">
+                <elastic-scrollbar class="scrollbar-container" style="height: 250px;">
+                  <mat-table #table [dataSource]="dataSource" >
+            
+                    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                    <ng-container cdkColumnDef="ID_ESCOLA">
+                      <mat-header-cell *cdkHeaderCellDef>ESCOLA</mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.ID_ESCOLA}} </mat-cell>
+                    </ng-container>
+            
+                    <!-- ID Column -->
+                    <ng-container cdkColumnDef="ID_TURMA">
+                      <mat-header-cell *cdkHeaderCellDef>Código</mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.ID_TURMA}} </mat-cell>
+                    </ng-container>
+            
+                    <!-- Descrição Column -->
+                    <ng-container cdkColumnDef="DESCRICAO">
+                      <mat-header-cell *cdkHeaderCellDef> Turma</mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.DESCRICAO}} </mat-cell>
+                    </ng-container>
+            
+                    <!-- Quantidade Column -->
+                    <ng-container cdkColumnDef="PERIODO">
+                      <mat-header-cell *cdkHeaderCellDef> Turno </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.PERIODO}} </mat-cell>
+                    </ng-container>
+            
+                  </mat-table>
+                </elastic-scrollbar>
+              </div>
+
+              <!--
+            </ul>-->
+          </div>
+
+          <!-- /// -->
+
+          <div class="details group-inline">
+            <div class="latest-buy group">
+              <div class="table col-4">
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="checkout box group">
+          <div class="block">
+            <header>
+              <p class="label-bar">Alunos</p>
+            </header>
+
+            <div class="table col-6">
+              <ul class="table-header">
+                <li>Matricula</li>
+                <li>Série</li>
+                <li>Nome</li>
+                <li>Idade</li>
+                <li style="width: 100px;">Telefone</li>
+                <li>Responsavel</li>
+              </ul>
+
+              <div class="scrollbar">
+                <elastic-scrollbar class="scrollbar-container">
+
+                  <ul class="table-list">
+                    <li>
+                        <ul class="table-content">
+                        <li>789000</li>
+                        <li>1</li>
+                        <li (click)="CarregarProduto(item)">
+                          <span class="item-name"
+                                #tooltip="matTooltip"
+                                matTooltip="Sergio Farias"
+                                matTooltipPosition="above">
+                            Sergio Farias
+                          </span>
+                        </li>
+                        <li>2</li>
+                        <li style="width: 100px;">21 98770-2255</li>
+                        <li style="width: 200px;">João da Silva</li>
+                       </ul>
+                    </li>
+
+                    <li>
+                      <ul class="table-content">
+                      <li>789001</li>
+                      <li>1</li>
+                      <li (click)="CarregarProduto(item)">
+                        <span class="item-name"
+                              #tooltip="matTooltip"
+                              matTooltip="Fabio Farias"
+                              matTooltipPosition="above">
+                          Fábio Farias
+                        </span>
+                      </li>
+                      <li>2</li>
+                      <li style="width: 100px;">21 98770-2255</li>
+                      <li style="width: 200px;">João da Silva</li>
+                     </ul>
+                  </li>
+
+                  <li>
+                    <ul class="table-content">
+                    <li>789002</li>
+                    <li>1</li>
+                    <li (click)="CarregarProduto(item)">
+                      <span class="item-name"
+                            #tooltip="matTooltip"
+                            matTooltip="Fernando Farias"
+                            matTooltipPosition="above">
+                        Fernando Farias
+                      </span>
+                    </li>
+                    <li>2</li>
+                    <li style="width: 100px;">21 98770-2255</li>
+                    <li style="width: 200px;">João da Silva</li>
+                   </ul>
+                </li>
+
+                   
+
+                  </ul>
+
+                </elastic-scrollbar>
+              </div>
+            </div>
+          </div>
+
+           
+        </section>
+      </div>
+
+    </div>
+
+  </div>
+</div>

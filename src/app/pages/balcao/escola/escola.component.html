@@ -1,0 +1,121 @@
+<section class="dialog client-register">
+  <header>
+    <h1>Cadastro de Escola</h1>
+  </header>
+
+  <form [formGroup]="formCadastroEscola">
+
+    <div class="group">
+      <h2 class="label">Dados Básicos</h2>
+
+      <div class="group-inline">
+        <div class="group">
+          <div class="fm-inline">
+
+            <input matInput placeholder="Codigo" class="invisible" formControlName="ID_ESCOLA">
+            <div class="fm-search">
+            <mat-form-field class="fm-group size-120">
+              <input matInput placeholder="RG MEC" type="text" formControlName="RG_MEC"
+              (keyUp.enter)="PesquisarLogradouroGrid()" (keydown.Tab)="PesquisarLogradouroGrid()" 
+              [(ngModel)]="RG_MEC"  mask="{{ cnpjCpfMask }}" (ngModelChange)="RG_MEC=$event; onCnpjCpfChanged()">
+            </mat-form-field>
+
+           <mat-spinner
+              mode="indeterminate"
+              diameter="16"
+              *ngIf="BuscandoEscola"
+          ></mat-spinner>
+
+            <button type="button" mat-icon-button (click)="PesquisarLogradouroGrid()">
+              <mat-icon class="icon">search</mat-icon>
+            </button>
+          </div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="fm-inline">
+           
+            <mat-form-field class="fm-group size-60">
+              <input matInput [matDatepicker]="DT_CAD" disabled placeholder="Data Cadastro" formControlName="DT_CAD">
+              <mat-datepicker-toggle matSuffix [for]="DT_CAD"></mat-datepicker-toggle>
+              <mat-datepicker #DT_CAD></mat-datepicker>
+            </mat-form-field>
+
+            <div class="fm-group size-100">
+              <mat-radio-group [(ngModel)]="selected">
+                <mat-radio-button class="chkPessoa" *ngFor="let pessoa of array" [checked]="pessoa.checked" [value]="pessoa" (change)="radioChange($event)"> {{ pessoa.name }} </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fm-inline">
+        <mat-form-field class="fm-group">
+          <input matInput placeholder="Nome" type="text" formControlName="NM_ESCOLA" [(ngModel)]="NM_ESCOLA"
+          (ngModelChange)="NM_ESCOLA = $event.toUpperCase()">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <app-address-grid></app-address-grid>
+
+    <br />
+
+    <!-- /////////////////////////////////////////////////////// -->
+
+    <div class="group-inline">
+
+      <div class="contact-list group size-60">
+        <div class="header">
+          <h2 class="label">Contato</h2>
+            <a (click)="addNewContact()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+        </div>
+
+        <br/>
+          <div class="scrollbar">
+            <elastic-scrollbar class="scrollbar-container">
+              <ul>
+                <li formArrayName="contatos" *ngFor="let c of formCadastroEscola.get('contatos').controls; let i = index;">
+                  <div class="fm-inline" [formGroupName]="i">
+                    
+                    <input matInput class="invisible" type="text" formControlName="ID_CONTATO">
+                    <app-input-field-select ngClass="fm-group size-40" label="Tipo" [lista]="listTipoContato" formControlName="ID_TIPO_CONTATO"
+                        itemValue="ID_TIPO_CONTATO" itemDisplay="DS_TIPO_CONTATO">
+                    </app-input-field-select>
+
+                    <mat-form-field class="fm-group size-80">
+                      <input matInput placeholder="Contato" type="text" formControlName="DS_CONTATO" mask="{{getMascara(c, i)}}">
+                    </mat-form-field>
+                  </div>
+                </li>
+              </ul>
+            </elastic-scrollbar>
+          </div>
+      </div>
+
+    <div class="notes group size-40">
+      <div class="header">
+        <p class="label">Observações</p>
+      </div>
+      <textarea matInput formControlName="OBS"></textarea>
+    </div>
+
+    </div>
+
+    <div class="buttons">
+      <button type="button" mat-button (click)="closeDialog()">Cancelar</button>
+      <button type="button" mat-button (click)="onSubmit()" [disabled]="!formCadastroEscola.valid">Salvar</button>
+    </div>
+
+    <!-- ============================================================================================================= -->
+
+    <ul class="dialog-actions">
+      <li>
+        <button type="button" (click)="closeDialog()"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </li>
+    </ul>
+
+  </form>
+</section>

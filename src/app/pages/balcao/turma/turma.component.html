@@ -1,0 +1,100 @@
+<section class="dialog client-register">
+  <header>
+    <h1>Cadastro de Turmas</h1>
+  </header>
+
+  <form [formGroup]="formCadastroTurma">
+
+    <div class="group">
+      <h2 class="label">Dados Básicos</h2>
+
+      <div class="group-inline">
+        <div class="group">
+          <div class="fm-inline">
+
+            <input matInput placeholder="Codigo" class="invisible" formControlName="ID_TURMA">
+            <div class="fm-search">
+            <mat-form-field class="fm-group size-120">
+              <input matInput placeholder="Turma" type="text" formControlName="RG_MEC"
+              (keyUp.enter)="PesquisarLogradouroGrid()" (keydown.Tab)="PesquisarLogradouroGrid()" 
+              [(ngModel)]="RG_MEC"  mask="{{ cnpjCpfMask }}" (ngModelChange)="RG_MEC=$event; onCnpjCpfChanged()">
+            </mat-form-field>
+
+           <mat-spinner
+              mode="indeterminate"
+              diameter="16"
+              *ngIf="BuscandoTurma"
+          ></mat-spinner>
+
+            <button type="button" mat-icon-button (click)="PesquisarLogradouroGrid()">
+              <mat-icon class="icon">search</mat-icon>
+            </button>
+          </div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="fm-inline">
+           
+            <mat-form-field class="fm-group size-60">
+              <input matInput [matDatepicker]="DT_CAD" disabled placeholder="Data Cadastro" formControlName="DT_CAD">
+              <mat-datepicker-toggle matSuffix [for]="DT_CAD"></mat-datepicker-toggle>
+              <mat-datepicker #DT_CAD></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="fm-inline">
+        <mat-form-field class="fm-group">
+          <input matInput placeholder="Nome" type="text" formControlName="NM_ESCOLA" [(ngModel)]="NM_ESCOLA"
+          (ngModelChange)="NM_ESCOLA = $event.toUpperCase()">
+        </mat-form-field>
+
+        <mat-form-field class="fm-group size-40" placeholder="Turno">
+          <mat-select >
+            <mat-option value="1">Manhão</mat-option>
+            <mat-option value="1">Tarde</mat-option>
+            <mat-option value="1">Noite</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+    <!--
+    <app-address-grid></app-address-grid>
+-->
+    <br />
+
+    <!-- /////////////////////////////////////////////////////// -->
+
+    <div class="group-inline">
+
+     
+
+    <div class="notes group size-40">
+      <div class="header">
+        <p class="label">Observações</p>
+      </div>
+      <textarea matInput formControlName="OBS"></textarea>
+    </div>
+
+    </div>
+
+    <div class="buttons">
+      <button type="button" mat-button (click)="closeDialog()">Cancelar</button>
+      <button type="button" mat-button (click)="onSubmit()" [disabled]="!formCadastroTurma.valid">Salvar</button>
+    </div>
+
+    <!-- ============================================================================================================= -->
+
+    <ul class="dialog-actions">
+      <li>
+        <button type="button" (click)="closeDialog()"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </li>
+    </ul>
+
+  </form>
+</section>

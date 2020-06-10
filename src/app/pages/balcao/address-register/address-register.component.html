@@ -1,0 +1,70 @@
+<section class="dialog address-register">
+  <header>
+    <h1>Cadastrar Endereço</h1>
+  </header>
+
+  <form [formGroup]="formCadastroEndereco">
+    <div class="group size-100">
+      <div class="fm-inline">
+        <app-address-search (returnsearch)="preencherDados($event)">
+        </app-address-search>
+
+        <mat-form-field class="fm-group invisible">
+          <input matInput placeholder="Codigo" formControlName="ID_LOGRADOURO">
+        </mat-form-field>
+        <mat-form-field class="fm-group invisible">
+          <input matInput placeholder="Cep" formControlName="CEP">
+        </mat-form-field>
+        <mat-form-field class="fm-group size-80">
+          <input matInput placeholder="Endereço" type="text" formControlName="LOGRADOURO">
+        </mat-form-field>
+      </div>
+
+      <!-- /// -->
+
+      <div class="fm-inline">
+        <mat-form-field class="fm-group size-80">
+          <input matInput placeholder="Bairro" type="text" formControlName="BAIRRO">
+        </mat-form-field>
+
+        <mat-form-field class="fm-group size-80">
+          <input matInput placeholder="Cidade" type="text" formControlName="NOME_CIDADE">
+        </mat-form-field>
+
+        <app-input-field-select class="fm-group" label="Estado" [lista]="listUFLogradouro" formControlName="ID_UF"
+            itemValue="ID_UF" itemDisplay="SIGLA_UF">
+       </app-input-field-select>
+      </div>
+
+       <!-- /// -->
+
+       <div class="fm-inline">
+        <mat-form-field class="fm-group size-20">
+          <input matInput placeholder="Nº" type="text" formControlName="NR_LOGRADOURO">
+        </mat-form-field>
+
+        <mat-form-field class="fm-group">
+          <input matInput placeholder="Complemento" type="text" formControlName="CPL_LOGRADOURO">
+        </mat-form-field>
+
+        <mat-form-field class="fm-group">
+          <input matInput placeholder="Ponto de Referência" type="text" formControlName="PONTO_REFERENCIA">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button mat-button (click)="onSubmit()">OK</button>
+      <button mat-button (click)="closeDialog()">Cancelar</button>
+    </div>
+
+    <!-- ============================================================================================================= -->
+
+    <ul class="dialog-actions">
+      <li>
+        <button (click)="closeDialog()"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </li>
+    </ul>
+  </form>
+
+</section>

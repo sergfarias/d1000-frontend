@@ -1,0 +1,108 @@
+<section class="dialog product-search">
+  <header>
+    <h1>Pesquisa de Escolas</h1>
+  </header>
+
+  <!-- ============================================================================================================= -->
+
+  <div class="group-inline">
+    <div class="group size-70">
+      <div class="fm-inline">
+        <mat-form-field class="fm-group size-30">
+
+          
+          <mat-select placeholder="Consulta por" [(ngModel)]="TipoConsulta" id="selCriterio">
+            <mat-option value="1">Descrição</mat-option>
+            <mat-option value="2">ID</mat-option>
+            <mat-option value="3">Registro MEC</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="fm-group">
+          <input #termo matInput id="txtTermo" placeholder="Termo de Pesquisa" type="text" [(ngModel)]="TermoPesquisa" (keyup.enter)="Pesquisar($event)" autofocus />
+        </mat-form-field>
+
+        <button type="button" mat-icon-button (click)="Pesquisar()">
+          <mat-icon class="icon">search</mat-icon>
+        </button>
+   </div>
+
+      <!-- /// -->
+
+      <div class="scrollbar">
+        <mat-spinner
+          mode="indeterminate"
+          diameter="32"
+          *ngIf="IsLoading"
+        ></mat-spinner>
+
+        <elastic-scrollbar
+          class="scrollbar-container"
+          name="pesquisaProdutoScroller"
+        >
+          <mat-table #table [dataSource]="dataSource" [hidden]="IsLoading">
+
+            <mat-header-row
+              *cdkHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+
+            <mat-row
+              mat-row
+              *matRowDef="let row; columns: displayedColumns; let i = index"
+              [ngClass]="{ highlight: selectedRowIndex == i }"
+              (click)="highlight(row, i)"
+              tabindex="999"
+              #produto
+              (click)="SelecionarProduto(row)"
+            ></mat-row>
+
+            <!-- ID Column -->
+            <ng-container cdkColumnDef="ID_ESCOLA">
+              <mat-header-cell *cdkHeaderCellDef>Código </mat-header-cell>
+              <mat-cell *cdkCellDef="let row"> {{ row.ID_ESCOLA }} </mat-cell>
+            </ng-container>
+
+            <!-- Descrição Column -->
+            <ng-container cdkColumnDef="NM_ESCOLA">
+              <mat-header-cell *cdkHeaderCellDef> Descrição </mat-header-cell>
+              <mat-cell *cdkCellDef="let row"> <span class="item-name">{{ row.NM_ESCOLA }}</span> </mat-cell>
+            </ng-container>
+
+          
+
+          </mat-table>
+        </elastic-scrollbar>
+      </div>
+    </div>
+
+    <!-- ///////// -->
+
+    <div class="compare group size-30">
+
+    
+    </div>
+  </div>
+
+
+
+<!--
+  <ul class="category-list">
+    <li><span *ngIf="focusedItem?.FLAG_CTR_ANTIBIOTICO == 0 && focusedItem?.FLAG_CTR_SNGPC == 0">Produto Normal</span></li>
+    <li><span *ngIf="focusedItem?.FLAG_PROD_TERMOLABEL == 1">Termolábil</span></li>
+    <li><span *ngIf="focusedItem?.FLAG_CTR_SNGPC == 1 && focusedItem?.FLAG_CTR_ANTIBIOTICO == 0">Produto Controlado</span></li>
+    <li><span *ngIf="focusedItem?.FLAG_CTR_ANTIBIOTICO == 1 && focusedItem?.FLAG_CTR_SNGPC == 0">Antibiótico</span></li>
+    <li><span *ngIf="focusedItem?.FLAG_FARMACIAPOPULAR == 1">Farmácia Popular</span></li>
+    <li><span *ngIf="focusedItem?.FLAG_PBM == 1">Produto PBM</span></li>
+  </ul>
+-->
+
+  <!-- ============================================================================================================= -->
+
+  <ul class="dialog-actions">
+    
+    <li>
+      <button (click)="closeDialog()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </li>
+  </ul>
+
+</section>

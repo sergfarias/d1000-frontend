@@ -1,0 +1,145 @@
+<section class="dialog client-register">
+  <header>
+    <h1>Cadastro de Aluno</h1>
+  </header>
+
+  <!-- ============================================================================================================= -->
+
+  <form [formGroup]="formCadastroAluno">
+
+    <div class="group">
+      <h2 class="label">Dados Básicos</h2>
+
+      <div class="group-inline">
+        <div class="group">
+          <div class="fm-inline">
+
+            <input matInput placeholder="Codigo" class="invisible" formControlName="ID_ALUNO">
+            <div class="fm-search">
+            <mat-form-field class="fm-group size-120">
+              <input matInput placeholder="CPF/CNPJ" type="text" formControlName="CNPJ_CPF"
+              (keyUp.enter)="PesquisarLogradouroGrid()" (keydown.Tab)="PesquisarLogradouroGrid()" 
+              [(ngModel)]="CNPJ_CPF"  mask="{{ cnpjCpfMask }}" (ngModelChange)="CNPJ_CPF=$event; onCnpjCpfChanged()">
+            </mat-form-field>
+           <!-- (blur)="PesquisarLogradouroGrid()" -->
+
+           <mat-spinner
+              mode="indeterminate"
+              diameter="16"
+              *ngIf="BuscandoAluno"
+          ></mat-spinner>
+
+            <button type="button" mat-icon-button (click)="PesquisarLogradouroGrid()">
+              <mat-icon class="icon">search</mat-icon>
+            </button>
+          </div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="fm-inline">
+         
+            <mat-form-field class="fm-group size-60">
+              <input matInput [matDatepicker]="DT_CAD" disabled placeholder="Data Cadastro" formControlName="DT_CAD">
+              <mat-datepicker-toggle matSuffix [for]="DT_CAD"></mat-datepicker-toggle>
+              <mat-datepicker #DT_CAD></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="fm-inline">
+        <mat-form-field class="fm-group">
+          <input matInput placeholder="Nome" type="text" formControlName="NM_ALUNO" [(ngModel)]="NM_ALUNO"
+          (ngModelChange)="NM_ALUNO = $event.toUpperCase()">
+        </mat-form-field>
+
+      </div>
+
+      <!-- /// -->
+
+      <div class="fm-inline">
+        <mat-form-field class="fm-group">
+          <input matInput placeholder="Nº RG" type="text" formControlName="RG">
+        </mat-form-field>
+
+        <app-input-field-select class="fm-group" label="Órgão Exp." [lista]="listOrgaoExpedidor" formControlName="ID_SIGLA_ORG_EXP"
+              itemValue="ID_SIGLA_ORG_EXP" itemDisplay="DS_SIGLA_ORG_EXP">
+         </app-input-field-select>
+
+        <app-input-field-select class="fm-group size-80" label="Sexo" [lista]="listTipoSexo" formControlName="ID_TIPO_SEXO"
+              itemValue="ID_TIPO_SEXO" itemDisplay="DS_TIPO_SEXO">
+         </app-input-field-select>
+
+       
+       <app-datepicker-mask class="fm-group size-70" label="Data Nasc." [(ngModel)]="DT_NASC" 
+         formControlName="DT_NASC" >
+        </app-datepicker-mask> 
+
+      </div>
+    </div>
+
+    <!-- /////////////////////////////////////////////////////// -->
+
+    <app-address-grid></app-address-grid>
+
+    <br />
+
+    <!-- /////////////////////////////////////////////////////// -->
+
+    <div class="group-inline">
+
+      <div class="contact-list group size-60">
+        <div class="header">
+          <h2 class="label">Contato</h2>
+            <a (click)="addNewContact()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+        </div>
+
+        <br/>
+          <div class="scrollbar">
+            <elastic-scrollbar class="scrollbar-container">
+              <ul>
+                <li formArrayName="contatos" *ngFor="let c of formCadastroAluno.get('contatos').controls; let i = index;">
+                  <div class="fm-inline" [formGroupName]="i">
+                    
+                    <input matInput class="invisible" type="text" formControlName="ID_CONTATO">
+                    <app-input-field-select ngClass="fm-group size-40" label="Tipo" [lista]="listTipoContato" formControlName="ID_TIPO_CONTATO"
+                        itemValue="ID_TIPO_CONTATO" itemDisplay="DS_TIPO_CONTATO">
+                    </app-input-field-select>
+
+                    <mat-form-field class="fm-group size-80">
+                      <input matInput placeholder="Contato" type="text" formControlName="DS_CONTATO" mask="{{getMascara(c, i)}}">
+                    </mat-form-field>
+                  </div>
+                </li>
+              </ul>
+            </elastic-scrollbar>
+          </div>
+      </div>
+
+       <!-- /////////////////////////////////////////////////////// -->
+
+    <div class="notes group size-40">
+     <textarea matInput formControlName="OBS"></textarea>
+    </div>
+
+    </div>
+
+    <!-- /////////////////////////////////////////////////////// -->
+
+    <div class="buttons">
+      <button type="button" mat-button (click)="closeDialog()">Cancelar</button>
+      <button type="button" mat-button (click)="onSubmit()" [disabled]="!formCadastroAluno.valid">Salvar</button>
+    </div>
+
+    <!-- ============================================================================================================= -->
+
+    <ul class="dialog-actions">
+      <li>
+        <button type="button" (click)="closeDialog()"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </li>
+    </ul>
+
+  </form>
+</section>

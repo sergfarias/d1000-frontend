@@ -1,0 +1,45 @@
+.table-container {
+    height: 400px;
+}
+
+.highlight{
+    background-color: #b7d74c !important;
+  }
+
+  mat-row:focus{
+        outline: none;
+    }
+
+    mat-row:hover {
+        cursor: pointer;
+        background-color: #ebffa8;
+    }
+
+.mat-column-ID_PROD {
+    width: 10%;
+}
+
+.mat-column-DS_PROD {
+    width: 60%;
+}
+
+.mat-column-NOME_FABRICANTE {
+    width: 20%;
+}
+
+.mat-column-QTDE_EST {
+    width: 10%;
+}
+
+.flags-produto {
+    color: #089ef4;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.foto-produto {
+    width: 150px;
+    height: 150px;
+    color: grey;
+    text-align: center;
+}

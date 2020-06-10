@@ -1,0 +1,16 @@
+<div class="group">
+  <form [formGroup]="formSearch">
+    <div class="fm-inline">
+      <div class="fm-search">
+        <mat-form-field class="fm-group">
+          <input matInput placeholder="CEP" type="text" formControlName="searchaddress" mask="00000-000"
+          (keyUp.enter)="PesquisarLogradouro()" (keydown.Tab)="PesquisarLogradouro()" (blur)="PesquisarLogradouro()">
+         </mat-form-field>
+
+        <button type="button" mat-icon-button (click)="PesquisarLogradouro()">
+          <mat-icon class="icon">search</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

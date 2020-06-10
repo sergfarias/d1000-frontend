@@ -1,0 +1,24 @@
+<div class="toolbar" fxLayout="row">
+
+  <ul class="user-actions" (vrClickOutside)="onClickOutside()">
+    <li>
+
+      <div class="menu-secondary">
+        <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
+          <div class="content">
+            <ul class="list">
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </li>
+
+  </ul>
+
+  <ul class="system-info">
+    <li><strong>IP:</strong> 127.0.0.1</li>
+  </ul>
+
+</div>
+
